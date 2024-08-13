@@ -9,14 +9,25 @@ import { getStorage } from "firebase/storage"
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyA5K6yr5eQHqHvcOzS8pUeaE4EHAFySzc4",
-  authDomain: "expense-tracker-7eb89.firebaseapp.com",
-  projectId: "expense-tracker-7eb89",
-  storageBucket: "expense-tracker-7eb89.appspot.com",
-  messagingSenderId: "597443856192",
-  appId: "1:597443856192:web:c6b44ca0a630923d321ca5",
-  measurementId: "G-G423BWX8D4"
+  apiKey: process.env.next_public_firebase_api_key,
+  authDomain: process.env.next_public_firebase_auth_domain,
+  projectId: process.env.next_public_firebase_project_id,
+  storageBucket: process.env.next_public_firebase_storage_bucket,
+  messagingSenderId: process.env.next_public_firebase_messaging_sender_id,
+  appId: process.env.next_public_firebase_app_id,
+  measurementId: process.env.next_public_firebase_measurement_id,
+
 };
+
+// Initialize Firebase Analytics, but only in the browser
+if (typeof window !== "undefined") {
+  isSupported().then((supported) => {
+    if (supported) {
+      const analytics = getAnalytics(app);
+    }
+  });
+}
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
